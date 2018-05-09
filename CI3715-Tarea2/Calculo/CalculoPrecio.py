@@ -3,6 +3,8 @@ Created on 9 may. 2018
 
 @author: Giulianne Tavano y Angelica Acosta
 '''
+from math import ceil, floor
+from datetime import timedelta
 
 class Tarifa:
     def __init__(self, tarifaSemana, tarifaFin):
@@ -29,3 +31,44 @@ class Servicio:
         
         self.inicioDeServicio = Formato(inicioFecha, horaNuevaIni)
         self.finDeServicio = Formato(finFecha, horaNuevaFin)
+        
+def calcularPrecio(tarifa, tiempoDeServicio):
+    inicio = tiempoDeServicio.inicioDeServicio
+    fin = tiempoDeServicio.finDeServicio
+
+    costo = 0
+    diasServicio = (fin.fecha - inicio.fecha).days
+
+    if (diasServicio == 0):
+        costo = ceil(fin.hora - inicio.hora)
+        if (1<=inicio.fecha.isoweekday()<=5):
+            costo = costo * tarifa.tarifaSemana
+        else:
+            costo = costo * tarifa.tarifaFin
+        return costo
+    
+    #Para el primer dia
+    if (1<=inicio.fecha.isoweekday()<=5):
+        costo = tarifa.tarifaSemana * (24-floor(inicio.hora))
+    else:
+        costo = tarifa.tarifaFin * (24-floor(inicio.hora))
+
+    #Para los dias intermedio
+    diasCompletos =  diasServicio - 1
+    diaActual = inicio.fecha + timedelta(days=1)
+    
+    if (diasCompletos > 0):
+        for i in range(diasCompletos):
+            if (1<=diaActual.isoweekday()<=5):
+                costo = costo + tarifa.tarifaSemana * 24 
+            else:
+                costo = costo + tarifa.tarifaFin * 24
+            diaActual = diaActual + timedelta(days=1)
+
+    #Para el ultimo
+    if (1<=fin.fecha.isoweekday()<=5):
+        costo = costo + tarifa.tarifaSemana * ceil(fin.hora)
+    else:
+        costo = costo + tarifa.tarifaFin * ceil(fin.hora)
+        
+    return costo
