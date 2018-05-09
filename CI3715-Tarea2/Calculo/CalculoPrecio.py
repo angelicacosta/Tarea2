@@ -35,7 +35,24 @@ class Servicio:
 def calcularPrecio(tarifa, tiempoDeServicio):
     inicio = tiempoDeServicio.inicioDeServicio
     fin = tiempoDeServicio.finDeServicio
+    
+    try:
+        #Verificamos que el servicio dura al menos 15 minutos
+        if (inicio.fecha == fin.fecha):
+            assert(fin.hora - inicio.hora >= 0.25)
+        elif (fin.fecha > inicio.fecha):
+            assert( (24-inicio.hora +fin.hora)>=0.25)
 
+        #Verificamos que el servicio dura como maximo 7 dias
+        assert(0 <= (fin.fecha - inicio.fecha).days <= 7)
+
+        if ((fin.fecha - inicio.fecha).days == 7):
+            assert(fin.hora<=inicio.hora)
+
+    except:
+        print("Duracion de Servicio Invalida")
+        exit()
+        
     costo = 0
     diasServicio = (fin.fecha - inicio.fecha).days
 
