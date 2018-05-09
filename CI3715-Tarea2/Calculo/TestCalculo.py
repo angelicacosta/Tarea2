@@ -6,7 +6,7 @@ Created on 9 may. 2018
 
 import unittest
 from datetime import date, time
-from Calculo.CalculoPrecio import Tarifa, Servicio, calcularPrecio
+from CalculoPrecio import Tarifa, Servicio, calcularPrecio
 
 class TestCalculo(unittest.TestCase):
     
