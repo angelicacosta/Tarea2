@@ -36,4 +36,14 @@ class TestCalculo(unittest.TestCase):
             calcularPrecio(tarifa, tiempoDeServicio)
         self.assertEqual(cm.exception.code, None)
 
- 
+    #Caso: Mismo dia, exactamente 15 minutos.
+    def testExact15Minutos(self):
+        dia1 = date(2018, 5, 18)
+        dia2 = date(2018, 5, 18)
+        horaIni = time(hour=1, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=1, minute=15, second=0, microsecond=0)
+        tarifa = Tarifa(1,2)
+
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+        assert calcularPrecio(tarifa, tiempoDeServicio)==1, "No se esta calculando bien el precio"
+        
