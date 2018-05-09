@@ -35,6 +35,17 @@ class TestCalculo(unittest.TestCase):
         tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
                
         assert calcularPrecio(tarifa, tiempoDeServicio)==168, "No se esta calculando bien el precio"
+	
+	#Caso: Tiene menos de 7 dias.
+    def testMenos7Dias(self):
+        dia1 = date(2018, 5, 18)
+        dia2 = date(2018, 5, 20)
+        horaIni = time(hour=1, minute=20, second=0, microsecond=0)
+        horaFin = time(hour=1, minute=30, second=0, microsecond=0)
+        tarifa = Tarifa(1,1)
         
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+        
+        assert calcularPrecio(tarifa, tiempoDeServicio)==49, "No se esta calculando bien el precio"
 if __name__ == "__main__":  
     unittest.main()        
