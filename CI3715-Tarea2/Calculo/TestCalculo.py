@@ -47,5 +47,18 @@ class TestCalculo(unittest.TestCase):
         tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
         
         assert calcularPrecio(tarifa, tiempoDeServicio)==49, "No se esta calculando bien el precio"
+
+	#Caso: Acepta bisiestos.  
+    def testAnioBisiesto(self):
+        dia1 = date(2020, 2, 28)
+        dia2 = date(2020, 3, 1)
+        horaIni = time(hour=3, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=3, minute=0, second=0, microsecond=0)
+        tarifa = Tarifa(1,1)
+       
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+               
+        assert calcularPrecio(tarifa, tiempoDeServicio)==48, "No se esta calculando bien el precio"
+    
 if __name__ == "__main__":  
     unittest.main()        
