@@ -23,6 +23,18 @@ class TestCalculo(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             calcularPrecio(tarifa, tiempoDeServicio)
         self.assertEqual(cm.exception.code, None)  
-
+    
+    #Caso: Tiene exactamente 7 dias.    
+    def testExact7Dias(self):
+        dia1 = date(2018, 5, 1)
+        dia2 = date(2018, 5, 8)
+        horaIni = time(hour=1, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=1, minute=0, second=0, microsecond=0)
+        tarifa = Tarifa(1,1)
+        
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+               
+        assert calcularPrecio(tarifa, tiempoDeServicio)==168, "No se esta calculando bien el precio"
+        
 if __name__ == "__main__":  
     unittest.main()        
