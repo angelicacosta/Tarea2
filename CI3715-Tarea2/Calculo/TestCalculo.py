@@ -74,3 +74,18 @@ class TestCalculo(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             calcularPrecio(tarifa, tiempoDeServicio)
         self.assertEqual(cm.exception.code, None)
+          
+    #Caso: Horas al reves, el servicio termina antes de empezar
+    def testHorasAlReves(self):
+        dia1 = date(2018, 6, 7)
+        dia2 = date(2018, 6, 7)
+        horaIni = time(hour=18, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=10, minute=0, second=0, microsecond=0)
+        tarifa = Tarifa(1,10)
+
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+               
+        with self.assertRaises(SystemExit) as cm:
+            calcularPrecio(tarifa, tiempoDeServicio)
+        self.assertEqual(cm.exception.code, None)
+    
