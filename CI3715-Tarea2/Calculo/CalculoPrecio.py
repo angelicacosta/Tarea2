@@ -8,12 +8,6 @@ from datetime import timedelta
 
 class Tarifa:
     def __init__(self, tarifaSemana, tarifaFin):
-        try:
-            assert(tarifaSemana>0 and tarifaFin>0)
-        except:
-            print("Valor de tarifa invalido")
-            exit()
-
         self.tarifaSemana = tarifaSemana
         self.tarifaFin = tarifaFin
 
@@ -51,6 +45,13 @@ def calcularPrecio(tarifa, tiempoDeServicio):
 
     except:
         print("Duracion de Servicio Invalida")
+        exit()
+        
+    try:
+        #Verificamos que las tarifas sean validas
+        assert(tarifa.tarifaSemana>0 and tarifa.tarifaFin>0)
+    except:
+        print("Valor de tarifa invalido")
         exit()
         
     costo = 0

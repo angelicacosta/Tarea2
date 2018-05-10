@@ -57,4 +57,5 @@ class TestCalculo(unittest.TestCase):
 
         tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
         assert calcularPrecio(tarifa, tiempoDeServicio)==1, "No se esta calculando bien el precio"
-  
+        
+        
