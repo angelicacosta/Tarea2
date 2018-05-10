@@ -88,4 +88,17 @@ class TestCalculo(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             calcularPrecio(tarifa, tiempoDeServicio)
         self.assertEqual(cm.exception.code, None)
+                 
+    #Caso: Caso cuando tarifa es nula.  
+    def testNulo(self):
+        dia1 = date(2018, 5, 18)
+        dia2 = date(2018, 5, 18)
+        horaIni = time(hour=1, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=1, minute=1, second=0, microsecond=0)
+        tarifa = Tarifa(0,0)
+
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+        with self.assertRaises(SystemExit) as cm:
+            calcularPrecio(tarifa, tiempoDeServicio)
+        self.assertEqual(cm.exception.code, None) 
     
