@@ -107,6 +107,20 @@ class TestCalculo(unittest.TestCase):
 		tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
 
 		assert calcularPrecio(tarifa, tiempoDeServicio)==48, "No se esta calculando bien el precio"
+	
+	#Caso: una tarifa negativa 
+	def testTarifaNeg(self):
+		dia1 = date(2018, 9, 27)
+		dia2 = date(2018, 10, 2)
+		horaIni = time(hour=17, minute=30, second=2, microsecond=0)
+		horaFin = time(hour=3, minute=40, second=0, microsecond=0)
+		tarifa = Tarifa(-3,1)
+
+		tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+			   
+		with self.assertRaises(SystemExit) as cm:
+			calcularPrecio(tarifa, tiempoDeServicio)
+		self.assertEqual(cm.exception.code, None)  
 
 if __name__ == "__main__":  
 	unittest.main()        
