@@ -4,6 +4,7 @@ Created on 9 may. 2018
 @author: Giulianne Tavano y Angelica Acosta
 '''
 
+
 import unittest
 from datetime import date, time
 from CalculoPrecio import Tarifa, Servicio, calcularPrecio
@@ -20,6 +21,7 @@ class TestCalculo(unittest.TestCase):
 
         tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
         
+
         assert calcularPrecio(tarifa, tiempoDeServicio)==96, "No se esta calculando bien el precio"
     
     #Caso: Tiene solo un dia pero menos de 15 minutos
@@ -35,7 +37,9 @@ class TestCalculo(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             calcularPrecio(tarifa, tiempoDeServicio)
         self.assertEqual(cm.exception.code, None)
-
+        #assert (self.assertRaises(SystemExit),1)
+        #assert self.assertEqual(calcularPrecio(tarifa, tiempoDeServicio), "Fechas invalidas") 
+    
     #Caso: Mismo dia, exactamente 15 minutos.
     def testExact15Minutos(self):
         dia1 = date(2018, 5, 18)
@@ -57,5 +61,16 @@ class TestCalculo(unittest.TestCase):
 
         tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
         assert calcularPrecio(tarifa, tiempoDeServicio)==1, "No se esta calculando bien el precio"
-        
-        
+    
+    #Caso: Entra y sale en el mismo momento.
+    def testIniFinIgual(self):
+        dia1 = date(2018, 5, 18)
+        dia2 = date(2018, 5, 18)
+        horaIni = time(hour=1, minute=0, second=0, microsecond=0)
+        horaFin = time(hour=1, minute=0, second=0, microsecond=0)
+        tarifa = Tarifa(1,1)
+
+        tiempoDeServicio = Servicio(dia1, horaIni, dia2, horaFin)
+        with self.assertRaises(SystemExit) as cm:
+            calcularPrecio(tarifa, tiempoDeServicio)
+        self.assertEqual(cm.exception.code, None)
