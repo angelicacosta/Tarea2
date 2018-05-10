@@ -20,8 +20,8 @@ class Servicio:
     def __init__(self, inicioFecha, inicioHora, finFecha, finHora):
         #Transformamos las horas con minutos a un formato que pueda
         #entender la funcion CalculoPrecio
-        horaNuevaIni = inicioHora.hour + (inicioHora.minute)/60
-        horaNuevaFin = finHora.hour + (finHora.minute)/60
+        horaNuevaIni = inicioHora.hour + (inicioHora.minute)/60 + (inicioHora.second)/3600
+        horaNuevaFin = finHora.hour + (finHora.minute)/60 + (finHora.second)/3600
         
         self.inicioDeServicio = Formato(inicioFecha, horaNuevaIni)
         self.finDeServicio = Formato(finFecha, horaNuevaFin)
