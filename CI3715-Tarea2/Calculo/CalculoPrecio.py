@@ -20,8 +20,8 @@ class Servicio:
     def __init__(self, inicioFecha, inicioHora, finFecha, finHora):
         #Transformamos las horas con minutos a un formato que pueda
         #entender la funcion CalculoPrecio
-        horaNuevaIni = inicioHora.hour + (inicioHora.minute)/60 + (inicioHora.second)/3600
-        horaNuevaFin = finHora.hour + (finHora.minute)/60 + (finHora.second)/3600
+        horaNuevaIni = inicioHora.hour + (inicioHora.minute)/60
+        horaNuevaFin = finHora.hour + (finHora.minute)/60
         
         self.inicioDeServicio = Formato(inicioFecha, horaNuevaIni)
         self.finDeServicio = Formato(finFecha, horaNuevaFin)
@@ -46,10 +46,10 @@ def calcularPrecio(tarifa, tiempoDeServicio):
     except:
         print("Duracion de Servicio Invalida")
         exit()
-    
-    #Verificamos que las tarifas no sean negativas
+        
     try:
-        assert(tarifa.tarifaSemana>=0 and tarifa.tarifaFin>=0)
+        #Verificamos que las tarifas sean validas
+        assert(tarifa.tarifaSemana>0 and tarifa.tarifaFin>0)
     except:
         print("Valor de tarifa invalido")
         exit()
